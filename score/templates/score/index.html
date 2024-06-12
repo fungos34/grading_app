@@ -1,0 +1,45 @@
+
+{% extends 'score/layout.html' %}
+{% load static %}
+{% block body %}
+<body>
+    
+
+    <div class="scoreParticipation">
+        <h2>Mitarbeitspunkte</h2>
+        <h3>{{ participation.reached_points }} von {{ participation.max_points }} Punkten</h3>
+
+    </div>
+
+    {% for exam in exams %}
+    <div class="scoreTables">
+    <h2>Test {{ exam.exam_number }}</h2>
+    <h3>{{ exam.reached_points }} von {{ exam.max_points }} Punkten</h3>
+    <label>Thema: {{ exam.exam_topic }}</label>
+        <br>
+        <br>
+        <div>
+            {% block images %}
+            <div>
+                {% for exam_number in exam_numbers %}
+                    {% if exam.exam_number|slugify == exam_number %}
+                        {% with 'score/img/Test'|add:exam_number|add:'/'|add:immatriculation_number|add:'_1.jpeg' as image_static %}
+                            <a href="{% url 'detail' exam.exam_number %}"><img class="pages" style="width: 100px; height: 150px;" alt="Vorderseite Test {{ exam.exam_number }} von {{student.student_user.first_name}} {{student.student_user.last_name}}" src="{% static image_static %}"></a>                    
+                            {% endwith %}
+                    {% endif %}
+                {% endfor %}                
+                {% for exam_number in exam_numbers %}
+                    {% if exam.exam_number|slugify == exam_number %}
+                        {% with 'score/img/Test'|add:exam_number|add:'/'|add:immatriculation_number|add:'_2.jpeg' as image_static %}
+                            <a href="{% url 'detail' exam.exam_number %}"><img class="pages" style="width: 100px; height: 150px;" alt="Rückseite Test {{ exam.exam_number }} von {{student.student_user.first_name}} {{student.student_user.last_name}}" src="{% static image_static %}"></a>
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endblock %}
+        </div> 
+    </div>
+    {% endfor %}
+    
+</body>
+{% endblock %}

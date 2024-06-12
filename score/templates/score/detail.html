@@ -1,0 +1,29 @@
+{% extends 'score/layout.html' %}
+{% load static %}
+{% block body %} 
+<body>
+    <a href="{% url 'score' %}"><strong>zurück</strong></a>
+    <div class="detailView">
+        <h2>Detailansicht Test {{ exam_number }}</h2>
+        <div>
+            <label>Vorderseite Test {{ exam_number }}</label><br>
+            {% if user.is_authenticated %}
+                {% if student.student_user == user %}
+                    <img class="pages" style="width: 500px;" alt="Vorderseite Test {{ exam_number }} von {{student.student_user.first_name}} {{student.student_user.last_name}}" src="{% static 'score/img/Test'|add:exam_number|add:'/'|add:immatriculation_number|add:'_1.jpeg' %}">
+                {% endif %}
+            {% endif %}
+        </div>
+        
+        <div>
+            <label>Rückseite Test {{ exam_number }}</label><br>
+            {% if user.is_authenticated %}
+                {% if student.student_user == user %}
+                    <img class="pages" style="width: 500px;" alt="Rückseite Test {{ exam_number }} von {{student.student_user.first_name}} {{student.student_user.last_name}}" src="{% static 'score/img/Test'|add:exam_number|add:'/'|add:immatriculation_number|add:'_2.jpeg' %}">
+                {% endif %}
+            {% endif %}
+        </div>
+        
+    <a href="{% url 'score' %}"><strong>zurück</strong></a>
+    </div>
+</body>
+{% endblock %}

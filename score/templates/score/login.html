@@ -1,0 +1,22 @@
+{% extends "score/layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+{% block body %}
+
+<body>
+    <form class="login" method="POST" action="{% url 'log_in' %}">
+        {% csrf_token %}
+        <label>Matrikelnummer</label><br>
+        <input name="username" placeholder="01234567" type="number" required><br>
+        <label>Passwort</label><br>
+        <input name="password" placeholder="odpwHu9b" type="password" required><br>
+        <input type="submit" value="Anmelden"> <br>
+    </form>
+</body>
+</html>
+{% endblock %}
